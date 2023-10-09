@@ -1,9 +1,12 @@
 FROM osrf/ros:noetic-desktop-full
 
-RUN sudo apt update && sudo apt upgrade -y && sudo apt install -y nano && rm -rf /var/lib/apt/lists/*
-RUN sudo apt install -y curl
-RUN sudo apt install -y git
-RUN sudo apt install -y python3-pip
+RUN sudo apt-get update \
+&& sudo apt upgrade -y \
+&& sudo apt install -y \
+nano \
+git \
+python3-pip \
+&& rm -rf /var/lib/apt/lists/*
 
 ARG USERNAME=hamza
 ARG USER_UID=1000
@@ -15,7 +18,9 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && mkdir /home/$USERNAME/.config && chown $USER_UID:$USER_GID /home/$USERNAME/.config 
 
 #Setup sudo
-RUN apt update && apt install -y sudo \
+RUN mkdir -p /etc/sudoer.d \
+    && apt-get update \
+    && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoer.d/$USERNAME\
     && chmod 0440 /etc/sudoer.d/$USERNAME \
     && rm -rf /var/lib/apt/lists/*
