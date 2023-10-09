@@ -13,3 +13,10 @@ ARG USER_GID=$USER_UID
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --gid $USER_GID --uid $USER_UID -m $USERNAME \
     && mkdir /home/$USERNAME/.config && chown $USER_UID:$USER_GID /home/$USERNAME/.config 
+
+#Setup sudo
+RUN apt update && apt install -y sudo \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoer.d/$USERNAME\
+    && chmod 0440 /etc/sudoer.d/$USERNAME \
+    && rm -rf /var/lib/apt/lists/*
+
