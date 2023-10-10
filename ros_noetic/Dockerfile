@@ -1,8 +1,8 @@
 FROM osrf/ros:noetic-desktop-full
 
-RUN sudo apt-get update \
-&& sudo apt upgrade -y \
-&& sudo apt install -y \
+RUN apt-get update \
+&& apt-get upgrade -y \
+&& apt-get install -y \
 nano \
 git \
 python3-pip \
@@ -25,3 +25,15 @@ RUN mkdir -p /etc/sudoer.d \
     && chmod 0440 /etc/sudoer.d/$USERNAME \
     && rm -rf /var/lib/apt/lists/*
 
+#Add user to the dialout group
+RUN usermod -aG dialout ${USERNAME}
+
+#Copy the entrypoint to the given variable below
+COPY entrypoint.sh /entrypoint.sh
+COPY bashrc /home/$USERNAME/.bashrc
+
+#Set the entrypoint
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+
+#Set the default command
+CMD ["bash"]
