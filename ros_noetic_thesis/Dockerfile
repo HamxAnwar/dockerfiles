@@ -9,7 +9,9 @@ python3-pip \
 curl \
 python3-catkin-tools \
 ros-noetic-camera-info-manager \
-ros-noetic-image-view
+ros-noetic-image-view \
+xcb
+
 RUN rm -rf /var/lib/apt/lists/*
 
 #Make thesis workspace
