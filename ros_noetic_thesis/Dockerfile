@@ -14,6 +14,8 @@ RUN rm -rf /var/lib/apt/lists/*
 
 #Make thesis workspace
 RUN mkdir -p /root/ros_thesis
+VOLUME /home/loki/ros_thesis:/root/ros_thesis
+
 WORKDIR /root/ros_thesis
 
 #Modify the .bashrc file in the container.
