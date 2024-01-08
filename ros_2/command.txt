@@ -1,0 +1,1 @@
+sudo docker run -it --network host --ipc host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --env=DISPLAY -v /dev:/dev --privileged --name office_container -v /home/loki/ros_office:/root/ros_office office_image
